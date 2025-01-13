@@ -6,12 +6,12 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:02 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/13 16:27:52 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/14 00:51:01 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line/get_next_line.h"
-#include "minilibx-linux/mlx.h"
+#include "minilibx/mlx.h"
 #include "so_long.h"
 #include <fcntl.h>
 #include <stdio.h> // kaldır
@@ -118,6 +118,8 @@ int	main(int argc, char **argv)
 	t_data	*map_data;
 
 	(void)argc;
+	check_dir_exist(argv);
+	validate_map(argv);
 	map_data = map_create(argv);
 	if (!map_data)
 		return (-1);

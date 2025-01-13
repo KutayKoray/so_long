@@ -6,7 +6,7 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:50 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/13 15:03:07 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/14 00:45:06 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,9 @@ void		mlx_image_player(t_data *map_data);
 void		mlx_image_door(t_data *map_data);
 
 void		free_data(t_data *map_data);
+
+void check_dir_exist(char **argv);
+void validate_map(char **map);
+char **read_map(char **argv);
 
 #endif
