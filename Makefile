@@ -1,41 +1,39 @@
+CFLAGS = -Wall -Wextra -Werror
+
+SRC_DIR = .
+GNL_DIR = get_next_line
+MLX_DIR = minilibx-linux
+TEX_DIR = textures
+MAP_DIR = maps
+
+SRC_FILES = $(SRC_DIR)/main.c \
+            $(GNL_DIR)/get_next_line.c \
+            $(GNL_DIR)/get_next_line_utils.c \
+			$(SRC_DIR)/keyhook.c \
+			$(SRC_DIR)/check_utils.c \
+			$(SRC_DIR)/mlx_image_utils.c \
+			$(SRC_DIR)/free.c \
+
+OBJ_FILES = $(SRC_FILES:.c=.o)
+
 NAME = so_long
 
-HEADER  = so_long.h
-MLX_LIB = $(MLX_PATH)/libmlx.a
-
-MLX_PATH = ./minilibx
-GNL_PATH = ./get_next_line
-INC_PATH = -I$(MLX_PATH) -I$(HEADER) -I$(GNL_PATH)
-
-SRC  = main.c \
-
-GNL_SRC = $(GNL_PATH)/get_next_line.c \
-          $(GNL_PATH)/get_next_line_utils.c \
-
-ALL_SRC = $(SRC) $(GNL_SRC)
-OBJ = $(ALL_SRC:.c=.o)
-
-CC        = gcc
-CFLAGS    = -Wall -Wextra -Werror
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 all: $(NAME)
 
-.c.o:
-	@ $(CC) $(CFLAGS) $(INC_PATH) -c $< -o $@
+$(NAME): $(OBJ_FILES) $(MLX_LIB)
+	$(CC) $(CFLAGS) $(OBJ_FILES) -L$(MLX_DIR) -lmlx -lX11 -lXext -o $(NAME)
 
-$(NAME): $(OBJ)
-	@ $(MAKE) -sC $(MLX_PATH) >/dev/null 2>&1
-	@ $(CC) -o $(NAME) $(OBJ) $(MLX_FLAGS)
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
 
 clean:
-	@ $(MAKE) -sC $(MLX_PATH) clean
-	@ rm -rf *.o
-	@ rm -rf $(GNL_PATH)/*.o
+	rm -f $(OBJ_FILES)
+	@make clean -C $(MLX_DIR)
 
 fclean: clean
-	@ rm -f $(MLX_LIB)
-	@ rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
