@@ -6,7 +6,7 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 14:30:02 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/13 15:31:19 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/18 02:25:11 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	mlx_image_collect(t_data *map_data)
 		exit(0);
 	}
 }
+
 void	mlx_image_player(t_data *map_data)
 {
 	map_data->player = mlx_xpm_file_to_image(map_data->mlx,

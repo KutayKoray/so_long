@@ -6,14 +6,14 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:16:51 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/13 15:43:34 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/18 01:18:54 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilibx-linux/mlx.h"
 #include "so_long.h"
 #include <stdlib.h>
-#include <stdio.h> // silenecek
+#include <unistd.h>	
 
 void	check_exit(t_data *map_data)
 {
@@ -21,12 +21,16 @@ void	check_exit(t_data *map_data)
 	{
 		if (map_data->is_all_collected)
 		{
-			printf("You win!\n");
+			write(1, "You win!\n", 9);
 			free_data(map_data);
 			exit(0);
 		}
 		else
-			printf("You need to collect all collectables!\n");
+		{
+			write(1, "You must collect all collectables!\n", 35);
+			free_data(map_data);
+			exit(0);
+		}
 	}
 	return ;
 }
@@ -40,7 +44,6 @@ void	check_collected(t_data *map_data)
 	}
 	if (map_data->collectable_count == 0)
 		map_data->is_all_collected = 1;
-	printf("Collectable count: %d\n", map_data->collectable_count);
 	return ;
 }
 

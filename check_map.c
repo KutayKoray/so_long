@@ -1,220 +1,116 @@
-// header eklenecek
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/18 01:40:16 by kkoray            #+#    #+#             */
+/*   Updated: 2025/01/18 02:19:14 by kkoray           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "so_long.h"
 #include "get_next_line/get_next_line.h"
-#include <unistd.h>
+#include "so_long.h"
 #include <fcntl.h>
 #include <stdlib.h>
-#include <stdio.h> // kaldır
+#include <unistd.h>
 
-void check_dir_exist(char **argv)
+void	check_dir_exist(char **argv)
 {
 	int	fd;
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-	{
-		write(1, "No file found, wrong map name\n", 31);
-		exit(0);
-	}
+		print_error_exit("Error. Directory not exist\n", NULL);
 	close(fd);
 }
 
-void free_and_exit(char **map)
+void	check_valid_characters(t_map *map_info)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-	exit(0);
-}
-
-void check_valid_characters(char **map)
-{
-    int i;
-	int j;
-
-    i = 0;
-    while (map[i])
-    {
-        j = 0;
-        while (map[i][j] != '\0' && map[i][j] != '\n')
-        {
-            if (map[i][j] != '0' && map[i][j] != '1' &&
-                map[i][j] != 'C' && map[i][j] != 'E' &&
-                map[i][j] != 'P')
-            {
-                write(1, "Error. Invalid character in map\n", 33);
-                free_and_exit(map);
-				exit(0);
-            }
-            j++;
-        }
-        i++;
-    }
-}
-
-void check_rectangular(char **map)
-{
-    int i;
-	int j;
-	int line_lenght;
-
-	i = 0;
-	while(map[i])
+	while (map_info->map[i])
 	{
 		j = 0;
-		while(map[i][j] != '\n' && map[i][j] != '\0')
-			j++;
-		if (i == 0)
-			line_lenght = j;
-		else if (line_lenght != j)
+		while (map_info->map[i][j] != '\0' && map_info->map[i][j] != '\n')
 		{
-			write(1, "Error. Map must be rectangular\n", 31);
-			free_and_exit(map);
-			exit(0);
+			if (map_info->map[i][j] != '0' && map_info->map[i][j] != '1'
+				&& map_info->map[i][j] != 'C' && map_info->map[i][j] != 'E'
+				&& map_info->map[i][j] != 'P')
+				print_error_exit("Error. unvalid characters.\n", map_info);
+			j++;
 		}
 		i++;
 	}
 }
 
-void check_required_elements(char **map)
+void	check_rectangular(t_map *map_info)
 {
-    int i = 0, j;
-    int exits = 0, collectibles = 0, players = 0;
+	int	i;
+	int	j;
+	int	line_lenght;
 
-    while (map[i])
-    {
-        j = 0;
-        while (map[i][j])
-        {
-            if (map[i][j] == 'E') exits++;
-            else if (map[i][j] == 'C') collectibles++;
-            else if (map[i][j] == 'P') players++;
-            j++;
-        }
-        i++;
-    }
-    if (exits != 1 || players != 1 || collectibles < 1)
-    {
-        write(1, "Error. Map must contain 1 exit, 1 player, and at least 1 collectible\n", 70);
-		free_and_exit(map);
-        exit(0);
-    }
-}
-void check_top_bottom_walls(char **map)
-{
-    int i;
-    int width;
-    int height;
-
-    i = 0;
-    width = ft_strlen(map[0]) - 1;
-    height = 0;
-    while (map[height])
-		height++;
-
-    while (i < width)
-    {
-        if (map[0][i] != '1' || map[height - 1][i] != '1')
-        {
-            write(1, "Error. Map must be surrounded by walls\n", 40);
-            free_and_exit(map);
-            exit(0);
-        }
-        i++;
-    }
-}
-
-void check_left_right_walls(char **map)
-{
-    int i;
-    int height;
-    int width;
-
-    i = 0;
-    height = 0;
-	width = ft_strlen(map[0]) - 1;
-    while (map[height])
-		height++;
-
-    while (i < height)
-    {
-        if (map[i][0] != '1' || map[i][width - 1] != '1')
-        {
-            write(1, "Error. Map must be surrounded by walls\n", 40);
-            free_and_exit(map);
-            exit(0);
-        }
-        i++;
-    }
-}
-
-void check_surrounded_by_walls(char **map)
-{
-    check_top_bottom_walls(map);
-    check_left_right_walls(map);
-}
-
-int get_map_height(char **argv)
-{
-	int		fd;
-	char	*line;
-	int		map_height;
-
-	map_height = 0;
-	fd = open(argv[1], O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		map_height++;
-		free(line);
-	}
-	close(fd);
-	return (map_height);
-}
-
-char **read_map(char **argv)
-{
-	int		fd;
-	char	*line;
-	char	**map;
-	int		i;
-
-	map = (char **)malloc(sizeof(char *) * (get_map_height(argv) + 1));
-	if (!map)
-		exit(0);
-	fd = open(argv[1], O_RDONLY);
 	i = 0;
-	while (1)
+	while (map_info->map[i])
 	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		map[i] = line;
+		j = 0;
+		while (map_info->map[i][j] != '\n' && map_info->map[i][j] != '\0')
+			j++;
+		if (i == 0)
+			line_lenght = j;
+		else if (line_lenght != j)
+			print_error_exit("Error. Map must be rectangular\n", map_info);
 		i++;
 	}
-	map[i] = NULL;
-	close(fd);
-	return (map);
 }
 
-// void check_valid_path(char **map)
-// {
-
-// }
-
-void validate_map(char **argv)
+void	check_required_elements(t_map *map_info)
 {
-	check_valid_characters(read_map(argv));
-	check_rectangular(read_map(argv));
-	check_required_elements(read_map(argv));
-	check_surrounded_by_walls(read_map(argv));
+	int				i;
+	int				j;
+	t_char_counts	counts;
+
+	i = 0;
+	counts.exits = 0;
+	counts.collectibles = 0;
+	counts.players = 0;
+	while (map_info->map[i])
+	{
+		j = 0;
+		while (map_info->map[i][j])
+		{
+			if (map_info->map[i][j] == 'E')
+				counts.exits++;
+			else if (map_info->map[i][j] == 'C')
+				counts.collectibles++;
+			else if (map_info->map[i][j] == 'P')
+				counts.players++;
+			j++;
+		}
+		i++;
+	}
+	if (counts.exits != 1 || counts.players != 1 || counts.collectibles < 1)
+		print_error_exit("Error. unvalid char count\n", map_info);
+}
+
+void	validate_map(char **argv)
+{
+	t_map	*map_info;
+
+	map_info = (t_map *)ft_calloc(sizeof(t_map), 1);
+	if (!map_info)
+		print_error_exit("Error. Memory allocation failed\n", NULL);
+	map_info->map = read_map(argv);
+	map_info->map_height = get_map_height(argv);
+	map_info->map_width = ft_strlen(map_info->map[0]) - 1;
+	check_valid_characters(map_info);
+	check_rectangular(map_info);
+	check_required_elements(map_info);
+	check_surrounded_by_walls(map_info);
+	if (!check_valid_path(map_info))
+		print_error_exit("Error. Map is not valid\n", map_info);
+	free_map_info(map_info);
 }

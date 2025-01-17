@@ -6,15 +6,14 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:02 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/14 00:51:01 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/18 02:24:47 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line/get_next_line.h"
-#include "minilibx/mlx.h"
+#include "minilibx-linux/mlx.h"
 #include "so_long.h"
 #include <fcntl.h>
-#include <stdio.h> // kaldır
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -94,7 +93,7 @@ void	map_fill(t_data *map_data, char **argv)
 	close(fd);
 }
 
-void mlx_renders(t_data *map_data)
+void	mlx_renders(t_data *map_data)
 {
 	map_data->img_width = 100;
 	map_data->img_height = 100;
@@ -102,7 +101,7 @@ void mlx_renders(t_data *map_data)
 	if (!map_data->mlx)
 		exit(0);
 	map_data->window = mlx_new_window(map_data->mlx, map_data->map_width * 100,
-			map_data->map_height * 100, "test-deneme");
+			map_data->map_height * 100, "so_long_kkoray");
 	if (!map_data->window)
 		exit(0);
 	mlx_image_wall(map_data);
@@ -110,7 +109,6 @@ void mlx_renders(t_data *map_data)
 	mlx_image_collect(map_data);
 	mlx_image_player(map_data);
 	mlx_image_door(map_data);
-
 }
 
 int	main(int argc, char **argv)
@@ -124,7 +122,7 @@ int	main(int argc, char **argv)
 	if (!map_data)
 		return (-1);
 	mlx_renders(map_data);
-	map_data->map = ft_calloc(map_data->map_height, sizeof(char **)); // double pointer olabilir
+	map_data->map = ft_calloc(map_data->map_height, sizeof(char *));
 	map_fill(map_data, argv);
 	mlx_key_hook(map_data->window, key_hook, map_data);
 	mlx_loop(map_data->mlx);
