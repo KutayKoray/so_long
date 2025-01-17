@@ -13,6 +13,7 @@ SRC_FILES = $(SRC_DIR)/main.c \
 			$(SRC_DIR)/check_utils.c \
 			$(SRC_DIR)/mlx_image_utils.c \
 			$(SRC_DIR)/free.c \
+			$(SRC_DIR)/check_map.c \
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

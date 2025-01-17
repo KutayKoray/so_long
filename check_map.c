@@ -109,47 +109,56 @@ void check_required_elements(char **map)
 }
 void check_top_bottom_walls(char **map)
 {
-	int i;
-	int width;
+    int i;
+    int width;
+    int height;
 
-	i = 0;
-	width = ft_strlen(map[0]) - 1;
-	while (i < width)
-	{
-		if (map[0][i] != '1' || map[width - 1][i] != '1')
-		{
-			write(1, "Error. Map must be surrounded by walls\n", 40);
-			free_and_exit(map);
-			exit(0);
-		}
-		i++;
-	}
+    i = 0;
+    width = ft_strlen(map[0]) - 1;
+    height = 0;
+    while (map[height])
+		height++;
+
+    while (i < width)
+    {
+        if (map[0][i] != '1' || map[height - 1][i] != '1')
+        {
+            write(1, "Error. Map must be surrounded by walls\n", 40);
+            free_and_exit(map);
+            exit(0);
+        }
+        i++;
+    }
 }
 
 void check_left_right_walls(char **map)
 {
-	int i;
-	int height;
+    int i;
+    int height;
+    int width;
 
-	i = 0;
-	height = 0;
-	while (map[height]) height++;
-	while (i < height)
-	{
-		if (map[i][0] != '1' || map[i][height - 1] != '1')
-		{
-			write(1, "Error. Map must be surrounded by walls\n", 40);
-			free_and_exit(map);
-			exit(0);
-		}
-		i++;
-	}
+    i = 0;
+    height = 0;
+	width = ft_strlen(map[0]) - 1;
+    while (map[height])
+		height++;
+
+    while (i < height)
+    {
+        if (map[i][0] != '1' || map[i][width - 1] != '1')
+        {
+            write(1, "Error. Map must be surrounded by walls\n", 40);
+            free_and_exit(map);
+            exit(0);
+        }
+        i++;
+    }
 }
 
 void check_surrounded_by_walls(char **map)
 {
-	check_top_bottom_walls(map);
-	check_left_right_walls(map);
+    check_top_bottom_walls(map);
+    check_left_right_walls(map);
 }
 
 int get_map_height(char **argv)
