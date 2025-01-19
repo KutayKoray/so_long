@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:16:51 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/18 01:18:54 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 00:31:23 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "so_long.h"
 #include <stdlib.h>
 #include <unistd.h>	
+#include "get_next_line/get_next_line.h"
 
 void	check_exit(t_data *map_data)
 {
@@ -91,4 +92,25 @@ int	check_wall(t_data *map_data, char dir)
 			return (check_collected(map_data), can_exit(map_data, dir));
 	}
 	return (0);
+}
+
+void init_map_data(t_data *map_data)
+{
+	map_data->collectable_count = 0;
+	map_data->is_all_collected = 0;
+	map_data->map_width = 0;
+	map_data->map_height = 0;
+	map_data->img_width = 0;
+	map_data->img_height = 0;
+	map_data->map = NULL;
+	map_data->mlx = NULL;
+	map_data->window = NULL;
+	map_data->wall = NULL;
+	map_data->road = NULL;
+	map_data->collect = NULL;
+	map_data->player = NULL;
+	map_data->exit = NULL;
+	map_data->player_x = 0;
+	map_data->player_y = 0;
+	map_data->number_of_moves = 0;
 }

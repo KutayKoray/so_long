@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:50 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/18 02:25:36 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 00:31:36 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_data
 	int				player_y;
 	int				number_of_moves;
 }					t_data;
+
+void				init_map_data(t_data *map_data);
 
 void				key_hook_d(t_data *map_data);
 void				key_hook_a(t_data *map_data);

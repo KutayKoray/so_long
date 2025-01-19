@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:02 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/18 02:24:47 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 01:56:40 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_data	*map_create(char **argv)
 	map_data = ft_calloc(1, sizeof(t_data));
 	if (!map_data)
 		return (NULL);
+	init_map_data(map_data);
 	map_data->map_height = 0;
 	while (1)
 	{
@@ -95,8 +96,6 @@ void	map_fill(t_data *map_data, char **argv)
 
 void	mlx_renders(t_data *map_data)
 {
-	map_data->img_width = 100;
-	map_data->img_height = 100;
 	map_data->mlx = mlx_init();
 	if (!map_data->mlx)
 		exit(0);
@@ -122,7 +121,9 @@ int	main(int argc, char **argv)
 	if (!map_data)
 		return (-1);
 	mlx_renders(map_data);
-	map_data->map = ft_calloc(map_data->map_height, sizeof(char *));
+	map_data->map = ft_calloc(map_data->map_height + 1, sizeof(char *));
+	if (!map_data->map)
+		return (-1);
 	map_fill(map_data, argv);
 	mlx_key_hook(map_data->window, key_hook, map_data);
 	mlx_loop(map_data->mlx);
