@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:00:51 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/20 00:41:44 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/18 02:20:15 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_data(t_data *map_data)
 	int	i;
 
 	i = 0;
-	while (map_data->map[i])
+	while (i < map_data->map_height)
 	{
 		free(map_data->map[i]);
 		i++;
