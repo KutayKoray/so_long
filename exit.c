@@ -6,13 +6,12 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 01:13:59 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/18 02:20:01 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:18:06 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilibx-linux/mlx.h"
 #include "so_long.h"
-#include <stddef.h>
 #include <stdlib.h>
 
 void	error_exit(t_data *map_data)

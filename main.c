@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:02 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/20 02:07:08 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:20:03 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_data	*map_create(char **argv)
 		if (line == NULL)
 			break ;
 		map_data->map_height++;
-		map_data->map_width = ft_strlen(line);
+		map_data->map_width = ft_strlen(line) - (line[ft_strlen(line)
+				- 1] == '\n');
 		free(line);
 	}
 	close(fd);
@@ -126,6 +127,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	map_fill(map_data, argv);
 	mlx_key_hook(map_data->window, key_hook, map_data);
+	mlx_hook(map_data->window, 17, 0, exit_from_window, map_data);
 	mlx_loop(map_data->mlx);
 	return (0);
 }

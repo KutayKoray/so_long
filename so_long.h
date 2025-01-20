@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:07:50 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/20 02:07:48 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:08:36 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ typedef struct s_map
 	int				map_width;
 	int				map_height;
 	t_coordinates	start_coord;
-	int				collected_all_c;
+	int				collected;
 	int				reached_e;
+	int				total_collect;
+	int				collected_all_c;
 }					t_map;
 
 typedef struct s_data
@@ -92,5 +94,9 @@ int					check_valid_path(t_map *map_info);
 void				destroy_mlx_images(t_data *map_data);
 void				check_surrounded_by_walls(t_map *map_info);
 int					get_map_height(char **argv);
+
+void				check_extension(char **argv, t_map *map_info);
+void				total_collectable(t_map *map_info);
+int					exit_from_window(t_data *map_data);
 
 #endif

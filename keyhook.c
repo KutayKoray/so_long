@@ -6,13 +6,21 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:13:03 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/18 02:22:15 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:19:14 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include "minilibx-linux/mlx.h"
 #include "so_long.h"
+#include <stdlib.h>
+
+int	exit_from_window(t_data *map_data)
+{
+	mlx_loop_end(map_data->mlx);
+	free_data(map_data);
+	exit(0);
+}
 
 int	key_hook(int keycode, void *param)
 {
@@ -29,8 +37,13 @@ int	key_hook(int keycode, void *param)
 		key_hook_s(map_data);
 	else if (keycode == 65307)
 		key_hook_e(map_data);
-	map_data->number_of_moves++;
-	ft_printf("Number of moves: %d\n", map_data->number_of_moves);
-		// duvar olunca yazmasın
+	if ((keycode == 100 && check_wall(map_data, 'd')) || (keycode == 97
+			&& check_wall(map_data, 'a')) || (keycode == 119
+			&& check_wall(map_data, 'w')) || (keycode == 115
+			&& check_wall(map_data, 's')))
+	{
+		map_data->number_of_moves++;
+		ft_printf("Number of moves: %d\n", map_data->number_of_moves);
+	}
 	return (0);
 }

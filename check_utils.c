@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoray <kkoray@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 13:16:51 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/20 02:05:49 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:16:59 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx-linux/mlx.h"
 #include "so_long.h"
 #include <stdlib.h>
-#include <unistd.h>	
-#include "get_next_line/get_next_line.h"
+#include <unistd.h>
 
 void	check_exit(t_data *map_data)
 {
@@ -94,7 +92,7 @@ int	check_wall(t_data *map_data, char dir)
 	return (0);
 }
 
-void init_map_data(t_data *map_data)
+void	init_map_data(t_data *map_data)
 {
 	map_data->collectable_count = 0;
 	map_data->is_all_collected = 0;

@@ -6,14 +6,13 @@
 /*   By: kkoray <kkoray@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 01:40:16 by kkoray            #+#    #+#             */
-/*   Updated: 2025/01/18 02:19:14 by kkoray           ###   ########.fr       */
+/*   Updated: 2025/01/20 14:16:01 by kkoray           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line/get_next_line.h"
 #include "so_long.h"
 #include <fcntl.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 void	check_dir_exist(char **argv)
@@ -106,10 +105,12 @@ void	validate_map(char **argv)
 	map_info->map = read_map(argv);
 	map_info->map_height = get_map_height(argv);
 	map_info->map_width = ft_strlen(map_info->map[0]) - 1;
+	check_extension(argv, map_info);
 	check_valid_characters(map_info);
 	check_rectangular(map_info);
 	check_required_elements(map_info);
 	check_surrounded_by_walls(map_info);
+	total_collectable(map_info);
 	if (!check_valid_path(map_info))
 		print_error_exit("Error. Map is not valid\n", map_info);
 	free_map_info(map_info);
