@@ -10,7 +10,9 @@
 	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/simon-zerisenay/42_So_Long?color=lightblue" />
 </p>
 
-Welcome to the 42 So_Long project! This project is part of the curriculum at 42 and focuses on creating a 2D game using the MinilibX, a simple graphic library provided by 42. So_Long is a game where the player navigates through a map, collects items, and avoids obstacles to reach the goal.
+Welcome to the 42 So_Long project! This project is part of the curriculum at 42 and focuses on creating a 2D game using the MinilibX, this project is a very small 2D game.
+Its purpose is to make you work with textures, sprites,
+and some other very basic gameplay elements.
 
 <h2>Objective</h2>
 The objective of the So_Long project is to develop a fully functional game that incorporates various game elements, such as map rendering, player movement, collision detection, item collection, and win/lose conditions. By completing this project, you will enhance your understanding of game development concepts and gain practical experience in using the MinilibX library.
